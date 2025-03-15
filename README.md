@@ -1,7 +1,7 @@
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>ENTER YOUR NAME</H3> NARMADHA S
+<H3>ENTER YOUR REGISTER NO.</H3> 212223220065
 <H3>EX. NO.1</H3>
-<H3>DATE</H3>
+<H3>DATE</H3> 15-03-2025
 <H1 ALIGN =CENTER> Introduction to Kaggle and Data preprocessing</H1>
 
 ## AIM:
@@ -37,11 +37,92 @@ STEP 5:Normalizing the data<BR>
 STEP 6:Splitting the data into test and train<BR>
 
 ##  PROGRAM:
-TYPE YOUR CODE HERE
+
+
+# Import Libraries
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.model_selection import train_test_split
+
+# Read the dataset
+df = pd.read_csv("/content/sample_data/Churn_Modelling.csv")
+
+# Handling Missing Values
+print("Missing Values:\n", df.isnull().sum(), "\n")
+
+# Handle duplicates (if any)
+duplicates = df.duplicated().sum()
+print(f"Number of duplicate rows: {duplicates}\n")
+
+# Check for Outliers using describe()
+print("Outliers (Summary Statistics):\n", df.describe(), "\n")
+
+# Drop unnecessary columns (like 'Surname', 'Geography', and 'Gender')
+df = df.drop(['Surname', 'Geography', 'Gender'], axis=1)
+
+# Normalize the dataset using MinMaxScaler
+scaler = MinMaxScaler()
+df_normalized = pd.DataFrame(scaler.fit_transform(df.drop('Exited', axis=1)), columns=df.columns[:-1])
+
+# Normalized dataset
+print("Normalized dataset:\n", df_normalized.head(), "\n")
+
+# Define features (X) and target (y)
+X = df_normalized.values
+y = df['Exited'].values
+
+# Input & Output Values
+print("Input Values (Features):\n", X[:5])  # Show first 5 rows of features
+print("\nOutput Values (Target):\n", y[:5])  # Show first 5 values of target
+
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Splitting the data for training & testing
+print(f"\nTraining data size: {len(X_train)}")
+print(f"Testing data size: {len(X_test)}")
+
 
 
 ## OUTPUT:
-SHOW YOUR OUTPUT HERE
+
+
+MISSING VALUES:
+
+
+![image](https://github.com/user-attachments/assets/f7869dff-df93-4772-ad35-ebbbc4652475)
+
+
+OUTLIERS:
+
+
+![image](https://github.com/user-attachments/assets/cb4360eb-c58e-4d15-8c2c-45d607dc99d7)
+
+
+NORMALIZED DATASET:
+
+
+![image](https://github.com/user-attachments/assets/e833488e-f0e3-42d7-8ae1-9d5e6e55e449)
+
+
+INPUT & OUTPUT VALUES:
+
+
+![image](https://github.com/user-attachments/assets/493e20f5-bb38-43b8-bfaf-018d224eee85)
+![image](https://github.com/user-attachments/assets/4eb2551e-0afc-4e67-847a-923cdea9e6b3)
+
+
+
+SPILTING THE DATA FOR TRAINING AND TESTING:
+
+
+![image](https://github.com/user-attachments/assets/fca2429a-bcdd-41fb-8333-693cc707e7df)
+
+
+
+
+
+
 
 
 ## RESULT:
